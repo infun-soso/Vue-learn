@@ -15,8 +15,7 @@
                   </div>
               </li>
           </ul>
-
-      <vfooter></vfooter>
+      <vfooter :citylist="citys" @citysadd="citysadd"></vfooter>
   </div>
 </template>
 
@@ -33,6 +32,11 @@
       components: {
         vheader,
         vfooter
+      },
+      methods: {
+        citysadd (data) {
+          this.citys.push(data)
+        }
       }
     }
 </script>
@@ -57,6 +61,7 @@
     .citylist li{
         margin-top: 10px;
         list-style: none;
+        float: left;
     }
 
 </style>
