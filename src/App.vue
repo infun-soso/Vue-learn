@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <vheader></vheader>
-      <img src="./assets/logo.png">
+      <!--<img src="./assets/logo.png">
       <router-view/>
           <ul class="citylist">
               <li v-for="item in citys">
@@ -15,13 +15,12 @@
                   </div>
               </li>
           </ul>
-      <vfooter :citylist="citys" @citysadd="citysadd"></vfooter>
+      <vfooter :citylist="citys" @citysadd="citysadd"></vfooter>-->
   </div>
 </template>
 
 <script>
     import vheader from '@/components/vheader.vue'
-    import vfooter from '@/components/vfooter.vue'
     export default {
       name: 'app',
       data () {
@@ -30,8 +29,7 @@
         }
       },
       components: {
-        vheader,
-        vfooter
+        vheader
       },
       methods: {
         citysadd (data) {
@@ -43,6 +41,7 @@
 
 <style scoped>
     @import '/static/css/button.min.css';
+    @import '/static/font-icon/style.css';
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
