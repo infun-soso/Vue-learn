@@ -2,7 +2,7 @@
   <div id="app">
       <vheader></vheader>
       <!--<img src="./assets/logo.png">
-      <router-view/>
+          <router-view/>
           <ul class="citylist">
               <li v-for="item in citys">
                   <div class="svg-wrapper">
@@ -46,9 +46,7 @@
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        margin-top: 50px;
+
     }
     *{
         margin: 0;

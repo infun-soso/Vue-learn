@@ -1,12 +1,20 @@
 <template>
     <div class="myMusic">
-        尽情期待!Music
+	    <type-list name="我的音乐" iconinfo="icon-music" count="28" :playing="true"></type-list>
+      <type-list name="我的音乐" iconinfo="icon-music" count="28" :playing="true"></type-list>
+      <type-list name="我的音乐" iconinfo="icon-music" count="28" :playing="true"></type-list>
+      <type-list name="我的音乐" iconinfo="icon-music" count="28" :playing="true"></type-list>
+
     </div>
 </template>
 
 <script>
+  import typelist from './typelist.vue'
   export default {
-    name: 'Music'
+    name: 'Music',
+    components: {
+      'type-list': typelist
+    }
   }
 </script>
 
