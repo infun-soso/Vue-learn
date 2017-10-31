@@ -1,12 +1,18 @@
 <template>
     <div class="myCommunity">
         尽情期待!Community
+      <testaaa></testaaa>
     </div>
+
 </template>
 
 <script>
+  import testvuex from './test/testvuex.vue'
     export default {
-      name: 'Community'
+      name: 'Community',
+      components: {
+        'testaaa': testvuex
+      }
     }
 </script>
 

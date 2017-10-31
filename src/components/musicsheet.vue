@@ -12,12 +12,13 @@
 </template>
 
 <script>
-    import store from './../store'
+//    import store from './../store'
+    export default {}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-    @import "./../../common/stylus/border-1px/index.styl"
-    @import "./../../common/stylus/global.styl"
+    @import "./../common/stylus/border-1px/index.styl"
+    @import "./../common/stylus/global.styl"
     .musicsheet
         height:auto
         width:100%
