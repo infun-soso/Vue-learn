@@ -4,7 +4,8 @@
             <i class="menu icon-menu"></i>
             <div class="centermenu">
                 <router-link tag="i" to="/mymusic">
-                    <i class="music icon-music" :class= "selectIndex===0?'active':''" ></i>
+                    <!--:class= "selectIndex===0?'active':''"-->
+                    <i class="music icon-music"  ></i>
                 </router-link>
                 <router-link tag="i" to="/findmusic">
                     <i class="find icon-wangyi"></i>
