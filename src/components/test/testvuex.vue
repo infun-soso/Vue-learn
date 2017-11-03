@@ -11,14 +11,14 @@
       <h4>{{ doneTodos }}</h4>
 
     <span style="color: orangered;">{{ doneTodosCount }}</span>
-    <p style="color: #000;background: blanchedalmond" @click="incrementing">Mutations</p>
+    <p style="color: #000;background: blanchedalmond" @click="adds">Mutations</p>
 
   </div>
 
 </template>
 
 <script>
-  import { mapState, mapGetters } from 'vuex'
+  import { mapState, mapGetters, mapMutations } from 'vuex'
   export default {
     name: 'testaaa',
     data () {
@@ -48,11 +48,12 @@
       alertd () {
         console.log(this.doneTodos[0].id)
       },
-      incrementing () {
-        this.$store.commit('increment', {
-          amount: 10
-        })
-      }
+      adds () {
+        this.add({amount: 10})
+      },
+      ...mapMutations({
+        add: 'increment'
+      })
 
   }
 //      count () {
