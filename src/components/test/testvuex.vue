@@ -2,6 +2,8 @@
   <div>
     <p></p>
     <h1>{{count}}</h1>
+      <button @click="increment">+1</button>
+      <button @click="decrement">-1</button>
     <h2>{{ userinfo }}</h2>
     <h2>{{ password }}</h2>
 
@@ -18,7 +20,7 @@
 </template>
 
 <script>
-  import { mapState, mapGetters, mapMutations } from 'vuex'
+  import { mapState, mapGetters, mapActions } from 'vuex'
   export default {
     name: 'testaaa',
     data () {
@@ -49,12 +51,12 @@
         console.log(this.doneTodos[0].id)
       },
       adds () {
-        this.add({amount: 10})
+        this.increment({amount: 10})
       },
-      ...mapMutations({
-        add: 'increment'
-      })
-
+      ...mapActions([
+        'increment',
+        'decrement'
+      ])
   }
 //      count () {
 //        return this.$store.state.count

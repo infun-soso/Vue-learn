@@ -23,8 +23,21 @@ const store = new Vuex.Store({
     doneTodosCount: (state, getters) => getters.doneTodos.length
   },
   mutations: {
-    increment: (state, payload) => {
-      state.count += payload.amount
+    increment (state, payload) {
+      state.count = state.count + payload.amount
+    },
+    decrement (state, payload) {
+      state.count--
+    }
+  },
+  actions: {
+    increment ({state, commit}, payload) {
+      setTimeout(() => {
+        commit('increment', payload)
+      }, 3000)
+    },
+    decrement ({commit}) {
+      commit('decrement')
     }
   }
 })
