@@ -1,40 +1,53 @@
 <template>
   <div id="app">
       <vheader></vheader>
-      <!--<img src="./assets/logo.png">
-          <router-view/>
-          <ul class="citylist">
-              <li v-for="item in citys">
-                  <div class="svg-wrapper">
-                      <svg height="40" width="150" >
-                          <rect id="shape" height="40" width="150" xmlns="http://www.w3.org/2000/svg"/>
-                      </svg>
-                      <div id="text">
-                          <a href="###"><span class="spot"></span>{{ item }}</a>
-                      </div>
-                  </div>
-              </li>
-          </ul>
-      <vfooter :citylist="citys" @citysadd="citysadd"></vfooter>-->
+
+
+      <!-- 底部固定页 -->
+      <bottom-bar></bottom-bar>
+
+      <!-- 歌单详情页 -->
+      <!--<song-sheet></song-sheet>-->
   </div>
 </template>
 
 <script>
     import vheader from '@/components/vheader.vue'
+    import bottombar from '@/components/bottombar.vue'
+    import Vue from 'vue'
+    import axios from 'axios'
+    import Vueaxios from 'vue-axios'
+    import store from './store'
+
+    Vue.use(axios, Vueaxios)
+
     export default {
       name: 'app',
       data () {
         return {
-          citys: ['北京', '上海', '杭州', '武汉', '迈阿密']
+          info: {}
         }
       },
       components: {
-        vheader
+        vheader,
+        'bottom-bar': bottombar
       },
       methods: {
         citysadd (data) {
           this.citys.push(data)
         }
+      },
+      created () {
+        let LocalApi = 'static/data.json'
+        axios.get(LocalApi).then((res) => {
+          console.log(res)
+          //    data.user的信息赋值给info 在通过组件的数据传递给SideBar
+          this.info = res.data.user
+          // 把所有的音乐数据给vuex的musicAllList
+          store.dispatch('set_MusicAllList', res.data.music)
+          // 所有的数据存起来 包括音乐个人信息 等等
+          store.dispatch('set_AllInfo', res.data)
+        })
       }
     }
 </script>

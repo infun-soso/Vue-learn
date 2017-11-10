@@ -6,7 +6,7 @@ const menulist = {
 	state: {
 		isShow: false,
 		detail: {
-			title: 'title : by 未曾遗忘的青春',
+			title: 'title : by 无心的纸壳人',
 			content: [
 			]
 		}

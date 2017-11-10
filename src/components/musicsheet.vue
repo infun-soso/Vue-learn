@@ -4,16 +4,107 @@
             <i class="toggle icon-down" ref="toggleicon"></i>
             <div class="detail">
                 <span class="name">{{ data_item.name }}</span>
-                <span class="count">{{ data_item.count }}</span>
+                <span class="count">({{ data_item.count }})</span>
                 <i class="setting icon-setting" @click.stop="showSheetMenu(data_item.name)"></i>
+            </div>
+        </div>
+        <div v-show="showSheets" v-for="(list, listindex) in data_item.detail" @click.stop="showSongSheet(list)">
+            <div class="content">
+                <img :src="list.info[0].img_url" class="sheetimg" alt="">
+                <div class="detail">
+                    <p class="name">{{ list.name }}</p>
+                    <p class="count">{{ list.count }}首歌曲</p>
+                    <i class="setting icon-list-circle" @click.stop="showMenu(list.name)"></i>
+                    <p class="border-1px" v-show="data_item.detail.length != listindex + 1"></p>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-//    import store from './../store'
-    export default {}
+    import store from './../store'
+    export default {
+        props: {
+          item: {
+            type: Object
+          },
+          index: {
+            type: Number
+          }
+        },
+        data () {
+          return {
+            showSheets: true,
+            data_item: {},
+            data_index: {}
+          }
+        },
+        mounted () {
+          this.data_item = this.item
+          this.data_index = this.index
+        },
+        methods: {
+          toggleSheets (event) {
+            this.$refs.toggleicon.style.transform = this.showSheets ? 'rotate(-90deg) translate3d(50%, 0, 0)' : 'rotate(0) translate3d(0,-50%, 0)'
+            this.showSheets = !this.showSheets
+          },
+          showMenu (name) {
+            store.dispatch({
+              type: 'showMenuList',
+              amount: {
+                title: `歌单：${name}`,
+                content: [
+                  {
+                    name: '分享',
+                    iconinfo: 'icon-share',
+                    count: 'none',
+                    bgcolor: '#fff'
+                  },
+                  {
+                    name: '编辑',
+                    iconinfo: 'icon-edit',
+                    count: 'none',
+                    bgcolor: '#fff'
+                  },
+                  {
+                    name: '删除',
+                    iconinfo: 'icon-delete',
+                    count: 'none',
+                    bgcolor: '#fff'
+                  }
+                ]
+              }
+            })
+          },
+          showSheetMenu (name) {
+            store.dispatch({
+              type: 'showMenuList',
+              amount: {
+                title: `${name}`,
+                content: [
+                  {
+                    name: '删除',
+                    iconinfo: 'icon-delete',
+                    count: 'none',
+                    bgcolor: '#fff'
+                  }
+                ]
+              }
+            })
+          },
+          showSongSheet (data) {
+            store.dispatch({
+              type: 'set_MusicSheetList',
+              data: data
+            })
+            store.commit({
+              type: 'setIsShowSongSheet',
+              isShow: true
+            })
+          }
+        }
+    }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
