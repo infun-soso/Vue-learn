@@ -1,5 +1,5 @@
 <template>
-    <div class="bottom-bar">
+    <div class="bottom-bar" @click="showMusicDetail">
         <div class="music-info">
             <img class="music-pic" :src="musicImage" alt="">
             <div class="music-detail">
@@ -58,6 +58,12 @@
         methods: {
           playpause () {
             store.commit('togglePlay')
+          },
+          showMusicDetail () {
+            store.dispatch({
+              type: 'set_MusicDetail',
+              isShow: true
+            })
           }
         }
     }
