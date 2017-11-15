@@ -5,7 +5,7 @@
             <div class="filterbg" :style="{backgroundImage : 'url(' + this.getCurrentMusic.img_url + ')', backgroundSize : 'cover', backgroundPosition : 'center center'}"></div>
             <div class="detailcontent">
                 <div class="content-header">
-                    <i class="back icon-back"></i>
+                    <i class="back icon-back" @click="hideMusicDetail"></i>
                     <div class="musicTopDetail">
                         <p class="name">{{ getCurrentMusic.name }}</p>
                         <p class="singer">{{ getCurrentMusic.singer }}</p>
@@ -25,6 +25,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="musicDo">
+                            <i class="icon icon-like"></i>
+                            <i class="icon icon-download"></i>
+                            <i class="icon icon-msg"></i>
+                            <i class="icon icon-list-circle-small"></i>
+                        </div>
+                    </div>
+                </transition>
+                <transition name="fade">
+                    <div class="lrc-wrapper" ref="lrcwrapper" v-show="!showCD" @click.stop="isShowCD(true)">
+                        <div class="volume-range">
+                            <range range-type="volume" ball-with="10" current-color="rgba(255,255,255,0.8)"></range>
+                        </div>
+                        <div class="lrc" ref="lrc" :scroll-top.prop="scrollTop">
+                            <div class="div-lrc" ref="divlrc">
+                                <p v-if="getCurrentMusic" v-for="(lrc, index) in getCurrentMusic.lyric" :data-index="index" :class="lrcIndex === index ? 'active musiclrc' : 'musiclrc'" :data-timeid="lrc.timeId">{{ lrc == '' ? '暂无歌词' : lrc.text }}</p>
+                            </div>
+                        </div>
                     </div>
                 </transition>
             </div>
@@ -33,33 +51,45 @@
 </template>
 
 <script>
-	export default {
-	  data () {
-	    return {
-	      isplay: false,
-          showCD: true,
-          scrollTop: 0,
-          currentLrcIndex: 0
-        }
-      },
-	  computed: {
-        isShowMusciDetail () {
-          return this.$store.getters.getMusicDetail
-        },
-        getCurrentMusic () {
-          return this.$store.getters.getCurrentMusic ? this.$store.getters.getCurrentMusic : ''
-        },
-        isPlaying () {
-          this.isplay = this.$store.getters.getIsPlaying
-          return this.$store.getters.getIsPlaying ? this.$store.getters.getIsPlaying : ''
-        }
-      },
-      methods: {
-	    isShowCD (bool) {
-	      this.showCD = bool
-        }
-      }
+    import store from './../store'
+    import range from './range.vue'
+export default {
+  data () {
+    return {
+      isplay: false,
+      showCD: true,
+      scrollTop: 0,
+      currentLrcIndex: 0
     }
+  },
+  computed: {
+    isShowMusciDetail () {
+      return this.$store.getters.getMusicDetail
+    },
+    getCurrentMusic () {
+      return this.$store.getters.getCurrentMusic ? this.$store.getters.getCurrentMusic : ''
+    },
+    isPlaying () {
+      this.isplay = this.$store.getters.getIsPlaying
+      return this.$store.getters.getIsPlaying ? this.$store.getters.getIsPlaying : ''
+    }
+  },
+  methods: {
+    hideMusicDetail () {
+      store.dispatch({
+        type: 'set_MusicDetail',
+        isShow: false
+      })
+      this.showCD = true
+    },
+    isShowCD (bool) {
+      this.showCD = bool
+    }
+  },
+  components: {
+    range
+  }
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
