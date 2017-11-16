@@ -3,7 +3,7 @@
       <audio src="" id="myaudio" ref="audio" @timeupdate="musicTimeUpdate" @canplay="musicCanPlay" @ended="musicEnded"></audio>
       <vheader></vheader>
 
-
+	  <music-list></music-list>
       <!-- 底部固定页 -->
       <bottom-bar></bottom-bar>
       <!--音乐播放页，显示CD详情-->
@@ -17,6 +17,7 @@
     import vheader from '@/components/vheader.vue'
     import bottombar from '@/components/bottombar.vue'
     import musicdetail from '@/components/musicdetail.vue'
+    import musiclist from '@/components/musiclist.vue'
     import Vue from 'vue'
     import axios from 'axios'
     import Vueaxios from 'vue-axios'
@@ -33,6 +34,7 @@
       },
       components: {
         vheader,
+        'music-list': musiclist,
         'bottom-bar': bottombar,
         'music-detail': musicdetail
       },

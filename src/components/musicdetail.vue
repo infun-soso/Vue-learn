@@ -128,6 +128,14 @@ export default {
     },
     playNext () {
       store.dispatch('play_Next')
+    },
+    showMusicList () {
+//      let scrollTop = (this.$store.getters.getCurrentIndex + 1 - 3) * 42
+//      store.dispatch({
+//        type: 'set_ScrollTop',
+//        scrollTop: scrollTop
+//      })
+      store.dispatch('showMusicList')
     }
   },
   components: {
