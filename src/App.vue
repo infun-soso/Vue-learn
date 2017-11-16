@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <audio src="" id="myaudio" ref="audio"></audio>
+      <audio src="" id="myaudio" ref="audio" @timeupdate="musicTimeUpdate" @canplay="musicCanPlay" @ended="musicEnded"></audio>
       <vheader></vheader>
 
 
@@ -39,6 +39,29 @@
       methods: {
         citysadd (data) {
           this.citys.push(data)
+        },
+        // 音频播放结束事件
+        musicEnded () {
+          store.dispatch('play_Ended')
+          // 歌词初始化
+        },
+        // 可以播放事件
+        musicCanPlay () {
+          store.dispatch({
+            type: 'set_MusicDuration',
+            duration: Math.floor(this.$refs.audio.duration)
+          })
+          store.commit({
+            type: 'setMusicLoadStart',
+            isloadstart: false
+          })
+        },
+        // 音乐播放时间更新事件
+        musicTimeUpdate () {
+          store.dispatch({
+            type: 'set_CurrentTime',
+            time: Math.floor(this.$refs.audio.currentTime)
+          })
         }
       },
       created () {

@@ -45,6 +45,19 @@
                         </div>
                     </div>
                 </transition>
+                <div class="content-footer">
+                    <div class="div-range">
+                        <range></range>
+                    </div>
+                    <div class="musicDetailCtrl">
+                        <!--循环模式按钮-->
+                        <i class="playType" :class="musicPlayType" @click.stop="setPlayType"></i>
+                        <i class="prev icon-prevdetail" @click.stop="playPrev"></i>
+                        <i class="playPause" :class="isPlaying ? 'icon-pause-detail' : 'icon-playdetail'" @click.stop="playPause"></i>
+                        <i class="prev icon-nextdetail" @click.stop="playNext"></i>
+                        <i class="menu icon-list-music" @click.stop="showMusicList"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </transition>
@@ -72,9 +85,30 @@ export default {
     isPlaying () {
       this.isplay = this.$store.getters.getIsPlaying
       return this.$store.getters.getIsPlaying ? this.$store.getters.getIsPlaying : ''
+    },
+    musicPlayType () {
+      let playType = this.$store.getters.getMusicPlayType ? this.$store.getters.getMusicPlayType : -1
+      let className = ''
+      switch (playType) {
+        case 1:
+          className = 'icon-music-shunxu'
+          break
+        case 2:
+          className = 'icon-music-danqu1'
+          break
+        case 3:
+          className = 'icon-music-random'
+          break
+        default:
+          className = ''
+      }
+      return className
     }
   },
   methods: {
+    playPause () {
+      store.commit('togglePlay')
+    },
     hideMusicDetail () {
       store.dispatch({
         type: 'set_MusicDetail',
@@ -84,6 +118,16 @@ export default {
     },
     isShowCD (bool) {
       this.showCD = bool
+    },
+    // 设置播放类型
+    setPlayType () {
+      store.dispatch('set_PlayType')
+    },
+    playPrev () {
+      store.dispatch('play_Prev')
+    },
+    playNext () {
+      store.dispatch('play_Next')
     }
   },
   components: {
@@ -251,7 +295,6 @@ export default {
                     justify-content:space-around
                     i
                         display:inline-block
-                        width:40px
                         width:40px
                         line-height:40px
                         text-align:center

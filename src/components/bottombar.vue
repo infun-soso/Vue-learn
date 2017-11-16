@@ -10,7 +10,7 @@
         <div class="playpause" @click.stop="playpause">
             <i :class="iconPlayPause ? 'icon-pause' : 'icon-play'"></i>
         </div>
-        <i class="music-list icon-list-music"></i>
+        <i class="music-list icon-list-music" @click.stop="showMusicList"></i>
     </div>
 </template>
 
@@ -52,6 +52,7 @@
         mounted () {
           // 所有audio的 vuex 的状态信息
           this.audioInfo = this.$store.state.audioInfo
+          console.log(this.$store.state.audioInfo)
           // 音乐是否play
           this.state.isplaying = this.audioInfo.playing
         },
@@ -64,6 +65,9 @@
               type: 'set_MusicDetail',
               isShow: true
             })
+          },
+          showMusicList () {
+            console.log('待开发')
           }
         }
     }

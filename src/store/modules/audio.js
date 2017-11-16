@@ -18,7 +18,7 @@ const audioInfo = {
 		// 是否显示歌单列表
 		showSongSheet: false,
 		// 当前音乐的index索引
-		currentIndex: 1,
+		currentIndex: 3,
 		// 歌词信息 索引
 		lyricIndex: -1,
 		// 全部音乐信息  包括歌单等等
