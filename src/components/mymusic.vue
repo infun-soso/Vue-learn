@@ -5,12 +5,13 @@
         <type-list name="我的电台" iconinfo="icon-diantai" count="1" :playing="false"></type-list>
         <type-list name="我的收藏" iconinfo="icon-collect" count="3" :playing="false" :has-border="false"></type-list>
         <music-sheet v-for="(item, index) in items" :item="item" :index="index" :key="item.id"></music-sheet>
-
+        <menu-list></menu-list>
     </div>
 </template>
 
 <script>
   import typelist from './typelist.vue'
+  import menulist from './menulist.vue'
   import musicsheet from './musicsheet.vue'
   export default {
     name: 'Music',
@@ -21,7 +22,8 @@
     },
     components: {
       'type-list': typelist,
-      'music-sheet': musicsheet
+      'music-sheet': musicsheet,
+      'menu-list': menulist
     }
   }
 </script>
