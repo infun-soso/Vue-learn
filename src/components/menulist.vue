@@ -1,6 +1,8 @@
 <template>
     <div class="menulist">
-
+        <transition name="sideUp">
+            <div class="content" ref="content" v-show="showMenu"></div>
+        </transition>
     </div>
 </template>
 
