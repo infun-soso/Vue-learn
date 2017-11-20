@@ -13,8 +13,8 @@
 	export default{
 		props: {
 			name: {
-        type: String,
-        default: ''
+	        type: String,
+	        default: ''
 			},
 			count: {
 				type: String,

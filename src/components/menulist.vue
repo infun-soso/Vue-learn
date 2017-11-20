@@ -1,13 +1,56 @@
 <template>
     <div class="menulist">
         <transition name="sideUp">
-            <div class="content" ref="content" v-show="showMenu"></div>
+            <div class="content" ref="content" v-show="showMenu">
+	            <p class="title">
+		            {{ menuList.title }}
+	            </p>
+	            <type-list v-for="(item, index) in menuList.content" :item="item" :index="index" :key="item.id" :name="item.name" :iconinfo="item.iconinfo" :count="item.count" :bgcolor="item.bgcolor"></type-list>
+            </div>
         </transition>
+	    <transition name="fade">
+		    <div class="mask" v-show="showMenu" @click="hideMenuList" @touchmove.stop.prevent="stopTouch($event)"></div>
+	    </transition>
     </div>
 </template>
 
 <script>
-    export default {}
+	import typelist from './typelist.vue'
+	import store from './../store'
+    export default {
+	  data () {
+	    return {
+	      isShow: false
+	    }
+	  },
+      methods: {
+        stopTouch (event) {
+          return
+        },
+        hideMenuList () {
+          store.dispatch('hideMenuList')
+        }
+      },
+	  computed: {
+	    showMenu () {
+	      this.isShow = this.$store.getters.getIsShow ? this.$store.getters.getIsShow : false
+	      return this.$store.getters.getIsShow ? this.$store.getters.getIsShow : false
+        },
+	    menuList () {
+	      return this.$store.getters.getShowMenuInfo ? this.$store.getters.getShowMenuInfo : ''
+	    }
+	  },
+      watch: {
+        isShow: function (newisShow) {
+          if (newisShow) {
+            this.$refs.content.style.height = `${this.$store.getters.getShowMenuInfo.content.length * 50 + 20}px`
+          }
+        }
+      },
+	  components: {
+	    'type-list': typelist
+	  }
+    }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
