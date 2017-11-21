@@ -1,7 +1,7 @@
 <template>
     <header>
         <div class="header-container">
-            <i class="menu icon-menu"></i>
+            <i class="menu icon-menu" @click="showMenu"></i>
             <div class="centermenu">
                 <router-link tag="i" to="/mymusic">
                     <!--:class= "selectIndex===0?'active':''"-->
@@ -24,11 +24,17 @@
 </template>
 
 <script>
+	import store from '../store'
     export default {
       name: 'vheader',
       data () {
         return {
           msg: 'this is header'
+        }
+      },
+      methods: {
+        showMenu () {
+          store.dispatch('showSideBar')
         }
       }
     }

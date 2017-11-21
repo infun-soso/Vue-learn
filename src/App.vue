@@ -2,7 +2,7 @@
   <div id="app">
       <audio src="" id="myaudio" ref="audio" @timeupdate="musicTimeUpdate" @canplay="musicCanPlay" @ended="musicEnded"></audio>
       <vheader></vheader>
-
+	  <side-bar :info="info"></side-bar>
 	  <music-list></music-list>
       <!-- 底部固定页 -->
       <bottom-bar></bottom-bar>
@@ -18,6 +18,7 @@
     import bottombar from '@/components/bottombar.vue'
     import musicdetail from '@/components/musicdetail.vue'
     import musiclist from '@/components/musiclist.vue'
+    import sidebar from '@/components/sidebar.vue'
     import Vue from 'vue'
     import axios from 'axios'
     import Vueaxios from 'vue-axios'
@@ -36,7 +37,8 @@
         vheader,
         'music-list': musiclist,
         'bottom-bar': bottombar,
-        'music-detail': musicdetail
+        'music-detail': musicdetail,
+        'side-bar': sidebar
       },
       methods: {
         citysadd (data) {
