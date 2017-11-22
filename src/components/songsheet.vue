@@ -1,12 +1,94 @@
 <template>
+	<transition name="sliderUpHideRight">
+		<div class="songsheet" ref="songsheet" v-show="showSongSheet" @scroll="scrollEvent">
+			<div class="songheader">
+				<i class="back icon-back" @click="hideSongSheet"></i>
+				<p class="title">歌单</p>
+				<i class="search icon-search"></i>
+				<i class="menu icon-list-circle"></i>
+				<div class="songheaderimg" ref="songheader"></div>
+			</div>
+			<div class="content">
+				<div class="top" ref="top">
+					<div class="songsheetdisc">
+						<div class="songsheetimg">
+							<img :src="getSongSheet.info[0].img_url" v-if="getSongSheet.info" alt="">
+							<span class="info" @click.stop="">i</span>
+						</div>
+						<div class="disc">
+							<p v-if="getSongSheet" class="songsheetname">{{ getSongSheet.name }}</p>
+							<div class="user">
+								<img :src="getSongSheet.user.avatar" v-if="getSongSheet.user" class="avatar" alt="">
+								<p v-if="getSongSheet.user" class="songsheetuser">{{ getSongSheet.user.name }}</p>
+								<i class="icon-right"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</transition>
 </template>
 
 <script>
+	import store from '../store'
+	export default {
+	  data () {
+	    return {
+	      isShow: false,
+	      showDownloadImage: false,
+	      sheetData: {}
+	    }
+	  },
+	  computed: {
+        showSongSheet () {
+          this.isShow = this.$store.getters.getIsShowSongSheet ? this.$store.getters.getIsShowSongSheet : false
+          return this.$store.getters.getIsShowSongSheet ? this.$store.getters.getIsShowSongSheet : false
+        },
+        getSongSheet () {
+          this.sheetData = this.$store.getters.getMusicSheetList ? this.$store.getters.getMusicSheetList : ''
+          return this.$store.getters.getMusicSheetList ? this.$store.getters.getMusicSheetList : ''
+        }
+	  },
+	  methods: {
+        hideSongSheet () {
+          store.commit({
+            type: 'setIsShowSongSheet',
+            isShow: false
+          })
+        },
+        scrollEvent () {
+          // alert(this.$refs.songsheet.scrollTop)
+          let opacity = this.$refs.songsheet.scrollTop / (this.$refs.top.offsetHeight - this.$refs.songheader.offsetHeight)
+          if (this.$refs.songsheet.scrollTop < this.$refs.top.offsetHeight - this.$refs.songheader.offsetHeight) {
+            this.$refs.songheader.style.opacity = opacity
+            this.$refs.songheader.style.filter = `alpha(opacity:${opacity * 100})`
+          } else {
+            this.$refs.songheader.style.opacity = 1
+            this.$refs.songheader.style.filter = `alpha(opacity:${100})`
+          }
+        }
+	  },
+      watch: {
+        isShow: function (newisshwo, oldisshow) {
+          this.$refs.songsheet.scrollTop = 0
+          let img = this.$store.getters.getMusicSheetList ? this.$store.getters.getMusicSheetList : ''
+          if (newisshwo) {
+            this.$refs.top.style.backgroundImage = `url(${img.info[0].img_url})`
+            this.$refs.top.style.backgroundSize = `5800%`
+            this.$refs.top.style.backgroundPosition = `center center`
+            this.$refs.songheader.style.backgroundImage = `url(${img.info[0].img_url})`
+            this.$refs.songheader.style.backgroundSize = `5800%`
+            this.$refs.songheader.style.backgroundPosition = `center center`
+          }
+        }
+      }
+	}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-    @import "../../common/stylus/global.styl"
-    @import "../../common/stylus/border-1px"
+    @import "./../common/stylus/global.styl"
+    @import "./../common/stylus/border-1px"
     .songsheet
         position:fixed
         left:0

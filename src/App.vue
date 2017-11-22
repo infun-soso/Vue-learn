@@ -9,7 +9,7 @@
       <!--音乐播放页，显示CD详情-->
       <music-detail></music-detail>
       <!-- 歌单详情页 -->
-      <!--<song-sheet></song-sheet>-->
+      <song-sheet></song-sheet>
   </div>
 </template>
 
@@ -19,6 +19,7 @@
     import musicdetail from '@/components/musicdetail.vue'
     import musiclist from '@/components/musiclist.vue'
     import sidebar from '@/components/sidebar.vue'
+    import songsheet from '@/components/songsheet.vue'
     import Vue from 'vue'
     import axios from 'axios'
     import Vueaxios from 'vue-axios'
@@ -38,7 +39,8 @@
         'music-list': musiclist,
         'bottom-bar': bottombar,
         'music-detail': musicdetail,
-        'side-bar': sidebar
+        'side-bar': sidebar,
+        'song-sheet': songsheet
       },
       methods: {
         citysadd (data) {
