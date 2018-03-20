@@ -1,32 +1,58 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
-import Community from '@/components/community'
-import MyMusic from '@/components/mymusic'
-import FindMusic from '@/components/findmusic'
+import VueRouter from 'vue-router'
+// import Search from './../components/search/search'
+import MyMusic from '../components/mymusic'
+import FindMusic from '../components/findmusic'
+import Community from '../components/community'
+import Findrecommend from '../components/findrecommend'
+import Findsheet from '../components/findsheet'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
+export default new VueRouter({
   routes: [
     {
+      // +++++++++++++++++++++ 首页
       path: '/',
       redirect: '/mymusic'
     },
     {
-      path: '/community',
-      name: 'Community',
-      component: Community
-    },
-    {
+      // 顶部三个的第一页   相当于首页
       path: '/mymusic',
-      name: 'mymusic',
       component: MyMusic
     },
     {
+      // +++++++++++++++++++++ findmusic 顶部三个的第二页
       path: '/findmusic',
-      name: 'findmusic',
-      component: FindMusic
+      component: FindMusic,
+      //  菜单的router
+      children: [{
+        // 第二页的第一个
+        path: '',
+        redirect: '/findmusic/findrecommend'
+      },
+      {
+        // findmusic   第一页
+        path: '/findmusic/findrecommend',
+        component: Findrecommend
+      },
+      {
+        // findmusic   第一页
+        path: '/findmusic/findsheet',
+        component: Findsheet
+      }]
+    },
+    {
+      // +++++++++++++++++++++ 顶部三个的第三页
+      path: '/community',
+      component: Community
     }
+
+    // {
+    //   // 搜索页
+    //   path: '/search',
+    //   name: 'Search',
+    //   component: Search
+    // }
   ]
 })

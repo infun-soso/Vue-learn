@@ -71,7 +71,7 @@
         }
       },
       created () {
-        let LocalApi = 'static/data.json'
+        let LocalApi = '/static/data.json'
         axios.get(LocalApi).then((res) => {
           console.log(res)
           //    data.user的信息赋值给info 在通过组件的数据传递给SideBar
